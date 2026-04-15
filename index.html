@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>JindexNovaStudio | Secure Access</title>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700&display=swap');
+
+        body {
+            background-color: #0a0a0a;
+            color: #00ffcc;
+            font-family: 'Orbitron', sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            overflow: hidden;
+            background: radial-gradient(circle, #0f0f0f 0%, #000 100%);
+        }
+
+        /* Arka Plan Hareketli Efekt */
+        body::before {
+            content: "";
+            position: absolute;
+            width: 200%;
+            height: 200%;
+            background: transparent url('https://www.transparenttextures.com/patterns/carbon-fibre.png');
+            opacity: 0.1;
+            animation: move 60s linear infinite;
+        }
+
+        @keyframes move {
+            from { transform: translate(0,0); }
+            to { transform: translate(-50%, -50%); }
+        }
+
+        .container {
+            text-align: center;
+            background: rgba(20, 20, 20, 0.9);
+            padding: 50px;
+            border-radius: 20px;
+            border: 2px solid #00ffcc;
+            box-shadow: 0 0 30px #00ffcc55;
+            z-index: 10;
+            backdrop-filter: blur(10px);
+            transition: 0.5s;
+        }
+
+        h1 {
+            font-size: 2.5em;
+            margin-bottom: 20px;
+            text-shadow: 0 0 10px #00ffcc;
+            letter-spacing: 5px;
+        }
+
+        .pass-box {
+            background: transparent;
+            border: 1px solid #00ffcc;
+            color: #fff;
+            padding: 15px;
+            width: 250px;
+            text-align: center;
+            font-size: 1.2em;
+            margin-bottom: 20px;
+            outline: none;
+            transition: 0.3s;
+        }
+
+        .pass-box:focus {
+            box-shadow: 0 0 20px #00ffcc;
+        }
+
+        .btn {
+            background: #00ffcc;
+            color: #000;
+            border: none;
+            padding: 15px 40px;
+            font-size: 1.1em;
+            font-weight: bold;
+            cursor: pointer;
+            transition: 0.4s;
+            text-decoration: none;
+            display: none; /* Şifre doğru olana kadar gizli */
+            border-radius: 5px;
+            box-shadow: 0 0 15px #00ffcc;
+        }
+
+        .btn:hover {
+            transform: scale(1.1);
+            background: #fff;
+            box-shadow: 0 0 40px #fff;
+        }
+
+        .status {
+            margin-top: 15px;
+            font-size: 0.9em;
+            color: #ff3333;
+        }
+    </style>
+</head>
+<body>
+
+<div class="container" id="box">
+    <h1>JINDEX NOVA STUDIO</h1>
+    <p>ERİŞİM İÇİN LİSANS ANAHTARINI GİRİN</p>
+    
+    <input type="password" id="passInput" class="pass-box" placeholder="Access Key..." oninput="checkPass()">
+    
+    <div id="status" class="status"></div>
+
+    <a href="JindexNovaStudio.zip" id="dlBtn" class="btn" download>DOSYAYI İNDİR</a>
+</div>
+
+<script>
+    function checkPass() {
+        const pass = document.getElementById('passInput').value;
+        const btn = document.getElementById('dlBtn');
+        const status = document.getElementById('status');
+        
+        // --- SENİN BELİRLEDİĞİN ŞİFRE ---
+        const dogruSifre = "JINDEX2026"; 
+
+        if(pass === dogruSifre) {
+            btn.style.display = "inline-block";
+            status.innerHTML = "<span style='color: #00ffcc;'>ERİŞİM ONAYLANDI ✅</span>";
+            document.getElementById('passInput').style.borderColor = "#00ffcc";
+        } else {
+            btn.style.display = "none";
+            status.innerHTML = "HATALI ANAHTAR ❌";
+        }
+    }
+</script>
+
+</body>
+</html>
