@@ -3,185 +3,196 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>JindexNova | Secured Portal</title>
+    <title>Storage Access | JindexNova</title>
     <style>
-        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600&family=JetBrains+Mono&display=swap');
+        @import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;600&display=swap');
 
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
-            cursor: default;
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
         }
 
         body {
-            background-color: #0a0a0a; /* Derin Siyah */
-            color: #ffffff;
-            font-family: 'Inter', sans-serif;
+            background-color: #f5f5f7; /* Apple tarzı çok açık gri */
+            color: #1d1d1f;
+            font-family: 'Plus Jakarta Sans', sans-serif;
             height: 100vh;
             display: flex;
             justify-content: center;
             align-items: center;
-            position: relative;
-            overflow: hidden;
         }
 
-        /* Arka planda yumuşak bir ışık hüzmesi */
-        body::before {
-            content: "";
+        /* Arka planda çok hafif, belli belirsiz gri gölgeler */
+        .bg-glow {
             position: absolute;
-            width: 600px;
-            height: 600px;
-            background: radial-gradient(circle, rgba(255,255,255,0.03) 0%, rgba(0,0,0,0) 70%);
+            width: 100%;
+            height: 100%;
+            background: radial-gradient(circle at 10% 20%, rgba(0,0,0,0.02) 0%, transparent 50%),
+                        radial-gradient(circle at 90% 80%, rgba(0,0,0,0.02) 0%, transparent 50%);
             z-index: 1;
         }
 
-        .main-card {
-            width: 440px;
+        .main-container {
+            width: 100%;
+            max-width: 420px;
+            background: #ffffff;
             padding: 50px 40px;
-            background: rgba(20, 20, 20, 0.6);
-            border: 1px solid rgba(255, 255, 255, 0.08);
-            border-radius: 28px;
-            backdrop-filter: blur(20px);
+            border-radius: 35px; /* Çok yumuşak köşeler */
+            box-shadow: 0 20px 40px rgba(0,0,0,0.04);
             text-align: center;
             z-index: 10;
-            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
-            transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
         }
 
-        .main-card:hover {
-            border-color: rgba(255, 255, 255, 0.15);
-            transform: translateY(-5px);
+        .icon-box {
+            width: 60px;
+            height: 60px;
+            background: #f5f5f7;
+            border-radius: 18px;
+            margin: 0 auto 25px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
         }
 
-        .logo-area h1 {
-            font-size: 1.4rem;
+        .icon-box svg {
+            width: 30px;
+            fill: #86868b;
+        }
+
+        h1 {
+            font-size: 1.5rem;
             font-weight: 600;
-            letter-spacing: -0.5px;
-            margin-bottom: 8px;
-            color: #ffffff;
+            letter-spacing: -0.02em;
+            margin-bottom: 10px;
         }
 
-        .logo-area p {
-            font-size: 0.85rem;
-            color: #666;
-            font-weight: 400;
+        p {
+            font-size: 0.9rem;
+            color: #86868b;
+            line-height: 1.5;
+            margin-bottom: 35px;
         }
 
-        .input-section {
-            margin: 35px 0;
+        .input-wrapper {
+            position: relative;
+            margin-bottom: 20px;
         }
 
         input[type="password"] {
             width: 100%;
-            background: rgba(255, 255, 255, 0.03);
-            border: 1px solid rgba(255, 255, 255, 0.1);
-            padding: 16px;
-            border-radius: 14px;
-            color: #ffffff;
-            font-family: 'JetBrains Mono', monospace;
+            padding: 18px 25px;
+            background: #f5f5f7;
+            border: 2px solid transparent;
+            border-radius: 20px;
             font-size: 1rem;
-            text-align: center;
+            color: #1d1d1f;
             outline: none;
-            transition: all 0.3s ease;
+            text-align: center;
         }
 
         input[type="password"]:focus {
-            background: rgba(255, 255, 255, 0.05);
-            border-color: rgba(255, 255, 255, 0.3);
-            box-shadow: 0 0 0 4px rgba(255, 255, 255, 0.02);
+            background: #ffffff;
+            border-color: #000000;
+            box-shadow: 0 10px 20px rgba(0,0,0,0.05);
         }
 
-        .download-btn {
+        .btn {
             display: none;
             width: 100%;
-            padding: 16px;
-            background-color: #ffffff;
-            color: #000000;
+            padding: 18px;
+            background: #1d1d1f;
+            color: #ffffff;
             text-decoration: none;
-            border-radius: 14px;
+            border-radius: 20px;
             font-weight: 600;
-            font-size: 0.95rem;
-            transition: all 0.3s ease;
-            margin-bottom: 20px;
-            animation: fadeIn 0.5s ease forwards;
+            margin-top: 15px;
+            cursor: pointer;
+            animation: slideUp 0.5s ease;
         }
 
-        @keyframes fadeIn {
+        @keyframes slideUp {
             from { opacity: 0; transform: translateY(10px); }
             to { opacity: 1; transform: translateY(0); }
         }
 
-        .download-btn:hover {
-            background-color: #e5e5e5;
-            transform: scale(1.02);
+        .btn:hover {
+            background: #000000;
+            transform: translateY(-2px);
+            box-shadow: 0 10px 25px rgba(0,0,0,0.15);
         }
 
-        .discord-footer {
-            margin-top: 20px;
+        .footer {
+            margin-top: 30px;
             font-size: 0.8rem;
-            color: #555;
+            color: #86868b;
         }
 
-        .discord-footer a {
-            color: #999;
+        .footer a {
+            color: #1d1d1f;
             text-decoration: none;
-            font-weight: 500;
-            transition: color 0.2s ease;
+            font-weight: 600;
+            display: inline-block;
+            margin-top: 8px;
         }
 
-        .discord-footer a:hover {
-            color: #ffffff;
+        .footer a:hover {
+            text-decoration: underline;
         }
 
-        #status-msg {
+        #error-hint {
             font-size: 0.75rem;
-            margin-top: 15px;
-            height: 15px;
-            color: #888;
+            color: #ff3b30;
+            margin-top: 10px;
+            height: 18px;
+            opacity: 0;
         }
     </style>
 </head>
 <body>
 
-    <div class="main-card">
-        <div class="logo-area">
+    <div class="bg-glow"></div>
+
+    <div class="main-container">
+        <div class="icon-box">
+            <svg viewBox="0 0 24 24"><path d="M12.85 2.15C12.74 2.06 12.6 2 12.45 2H11.55C11.4 2 11.26 2.06 11.15 2.15L7.15 6.15C6.95 6.35 6.95 6.66 7.15 6.85C7.35 7.05 7.66 7.05 7.85 6.85L11.5 3.21V16.5C11.5 16.78 11.72 17 12 17C12.28 17 12.5 16.78 12.5 16.5V3.21L16.15 6.85C16.35 7.05 16.66 7.05 16.85 6.85C17.05 6.66 17.05 6.35 16.85 6.15L12.85 2.15Z"/><path d="M19 12V19C19 19.55 18.55 20 18 20H6C5.45 20 5 19.55 5 19V12C5 11.45 4.55 11 4 11C3.45 11 3 11.45 3 12V19C3 20.66 4.34 22 6 22H18C19.66 22 21 20.66 21 19V12C21 11.45 20.55 11 20 11C19.45 11 19 11.45 19 12Z"/></svg>
+        </div>
+
+        <div class="header">
             <h1>JindexNova</h1>
-            <p>Enterprise Software Verification</p>
+            <p>Please enter your private key to access the shared files.</p>
         </div>
 
-        <div class="input-section">
-            <input type="password" id="passInput" placeholder="Security Token" oninput="checkPass()">
-            <div id="status-msg"></div>
+        <div class="input-wrapper">
+            <input type="password" id="keyInput" placeholder="Enter security key" oninput="check()">
+            <div id="error-hint"></div>
         </div>
 
-        <a href="https://drive.google.com/uc?export=download&id=1vDG8e11l53Fid78PKjnLpasq8Kem6q-w" id="dlButton" class="download-btn">Verify & Download</a>
+        <a href="https://drive.google.com/uc?export=download&id=1vDG8e11l53Fid78PKjnLpasq8Kem6q-w" id="dl" class="btn">Verify & Download</a>
 
-        <div class="discord-footer">
-            Need a token? <br>
-            <a href="https://discord.gg/zeCeDV9FrF" target="_blank">Join JINDEX STUDIO Support</a>
+        <div class="footer">
+            Don't have an access key? <br>
+            <a href="https://discord.gg/zeCeDV9FrF" target="_blank">Contact JINDEX STUDIO support</a>
         </div>
     </div>
 
     <script>
-        function checkPass() {
-            const input = document.getElementById('passInput');
-            const btn = document.getElementById('dlButton');
-            const msg = document.getElementById('status-msg');
-            
-            // Senin şifren
-            const masterKey = "QeRT88JINDEX0929"; 
+        function check() {
+            const val = document.getElementById('keyInput').value;
+            const btn = document.getElementById('dl');
+            const hint = document.getElementById('error-hint');
+            const pass = "QeRT88JINDEX0929";
 
-            if(input.value === masterKey) {
+            if(val === pass) {
                 btn.style.display = "block";
-                msg.style.color = "#888";
-                msg.innerText = "Token accepted. Secure link established.";
-                input.style.borderColor = "rgba(255, 255, 255, 0.4)";
-            } else if(input.value.length > 0) {
-                btn.style.display = "none";
-                msg.innerText = "Waiting for valid token...";
+                hint.style.opacity = "0";
+            } else if(val.length > 5) {
+                hint.innerText = "The key provided is not valid.";
+                hint.style.opacity = "1";
             } else {
-                msg.innerText = "";
+                btn.style.display = "none";
+                hint.style.opacity = "0";
             }
         }
     </script>
