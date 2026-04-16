@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Storage Access | JindexNova</title>
+    <title>Cloud Storage | JindexNova</title>
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;600&display=swap');
 
@@ -11,188 +11,193 @@
             margin: 0;
             padding: 0;
             box-sizing: border-box;
-            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
         }
 
         body {
-            background-color: #f5f5f7; /* Apple tarzı çok açık gri */
-            color: #1d1d1f;
+            background-color: #f8f9fa; /* Çok yumuşak, açık gri-beyaz */
+            color: #212529;
             font-family: 'Plus Jakarta Sans', sans-serif;
             height: 100vh;
             display: flex;
             justify-content: center;
             align-items: center;
+            overflow: hidden;
         }
 
-        /* Arka planda çok hafif, belli belirsiz gri gölgeler */
-        .bg-glow {
+        /* Arka planda derinlik katan çok hafif gradyan */
+        .bg-gradient {
             position: absolute;
+            top: 0;
+            left: 0;
             width: 100%;
             height: 100%;
-            background: radial-gradient(circle at 10% 20%, rgba(0,0,0,0.02) 0%, transparent 50%),
-                        radial-gradient(circle at 90% 80%, rgba(0,0,0,0.02) 0%, transparent 50%);
-            z-index: 1;
+            background: radial-gradient(circle at 50% 50%, rgba(255,255,255,1) 0%, rgba(235,238,241,1) 100%);
+            z-index: -1;
         }
 
-        .main-container {
+        .main-portal {
             width: 100%;
-            max-width: 420px;
+            max-width: 440px;
             background: #ffffff;
-            padding: 50px 40px;
-            border-radius: 35px; /* Çok yumuşak köşeler */
-            box-shadow: 0 20px 40px rgba(0,0,0,0.04);
+            padding: 60px 45px;
+            border-radius: 40px; /* Ekstra yumuşak köşeler */
+            box-shadow: 0 30px 60px rgba(0,0,0,0.05);
             text-align: center;
-            z-index: 10;
+            border: 1px solid rgba(0,0,0,0.02);
         }
 
-        .icon-box {
-            width: 60px;
-            height: 60px;
-            background: #f5f5f7;
-            border-radius: 18px;
-            margin: 0 auto 25px;
+        .brand-icon {
+            width: 70px;
+            height: 70px;
+            background: #f1f3f5;
+            border-radius: 24px;
+            margin: 0 auto 30px;
             display: flex;
             align-items: center;
             justify-content: center;
         }
 
-        .icon-box svg {
-            width: 30px;
-            fill: #86868b;
+        .brand-icon svg {
+            width: 32px;
+            fill: #adb5bd;
         }
 
         h1 {
-            font-size: 1.5rem;
+            font-size: 1.6rem;
             font-weight: 600;
-            letter-spacing: -0.02em;
-            margin-bottom: 10px;
+            color: #1a1c1e;
+            margin-bottom: 12px;
+            letter-spacing: -0.5px;
         }
 
         p {
-            font-size: 0.9rem;
-            color: #86868b;
+            font-size: 0.95rem;
+            color: #6c757d;
+            margin-bottom: 40px;
             line-height: 1.5;
-            margin-bottom: 35px;
         }
 
-        .input-wrapper {
-            position: relative;
-            margin-bottom: 20px;
+        .input-container {
+            margin-bottom: 25px;
         }
 
         input[type="password"] {
             width: 100%;
-            padding: 18px 25px;
-            background: #f5f5f7;
+            padding: 20px;
+            background: #f8f9fa;
             border: 2px solid transparent;
-            border-radius: 20px;
+            border-radius: 22px;
             font-size: 1rem;
-            color: #1d1d1f;
-            outline: none;
             text-align: center;
+            outline: none;
+            color: #212529;
         }
 
         input[type="password"]:focus {
             background: #ffffff;
-            border-color: #000000;
-            box-shadow: 0 10px 20px rgba(0,0,0,0.05);
+            border-color: #dee2e6;
+            box-shadow: 0 10px 20px rgba(0,0,0,0.03);
         }
 
-        .btn {
+        .download-action {
             display: none;
             width: 100%;
-            padding: 18px;
-            background: #1d1d1f;
+            padding: 20px;
+            background: #212529; /* Siyah/Gri ağırlıklı buton */
             color: #ffffff;
             text-decoration: none;
-            border-radius: 20px;
+            border-radius: 22px;
             font-weight: 600;
-            margin-top: 15px;
+            font-size: 1rem;
             cursor: pointer;
-            animation: slideUp 0.5s ease;
+            animation: fadeIn 0.4s ease;
         }
 
-        @keyframes slideUp {
+        @keyframes fadeIn {
             from { opacity: 0; transform: translateY(10px); }
             to { opacity: 1; transform: translateY(0); }
         }
 
-        .btn:hover {
+        .download-action:hover {
             background: #000000;
             transform: translateY(-2px);
-            box-shadow: 0 10px 25px rgba(0,0,0,0.15);
+            box-shadow: 0 15px 30px rgba(0,0,0,0.1);
         }
 
-        .footer {
-            margin-top: 30px;
-            font-size: 0.8rem;
-            color: #86868b;
+        .support-area {
+            margin-top: 35px;
+            padding-top: 25px;
+            border-top: 1px solid #f1f3f5;
+            font-size: 0.85rem;
+            color: #adb5bd;
         }
 
-        .footer a {
-            color: #1d1d1f;
+        .support-area a {
+            color: #495057;
             text-decoration: none;
             font-weight: 600;
             display: inline-block;
-            margin-top: 8px;
+            margin-top: 5px;
         }
 
-        .footer a:hover {
-            text-decoration: underline;
+        .support-area a:hover {
+            color: #000000;
         }
 
-        #error-hint {
-            font-size: 0.75rem;
-            color: #ff3b30;
-            margin-top: 10px;
-            height: 18px;
-            opacity: 0;
+        #status-hint {
+            font-size: 0.8rem;
+            margin-top: 12px;
+            height: 20px;
+            color: #adb5bd;
         }
     </style>
 </head>
 <body>
 
-    <div class="bg-glow"></div>
+    <div class="bg-gradient"></div>
 
-    <div class="main-container">
-        <div class="icon-box">
-            <svg viewBox="0 0 24 24"><path d="M12.85 2.15C12.74 2.06 12.6 2 12.45 2H11.55C11.4 2 11.26 2.06 11.15 2.15L7.15 6.15C6.95 6.35 6.95 6.66 7.15 6.85C7.35 7.05 7.66 7.05 7.85 6.85L11.5 3.21V16.5C11.5 16.78 11.72 17 12 17C12.28 17 12.5 16.78 12.5 16.5V3.21L16.15 6.85C16.35 7.05 16.66 7.05 16.85 6.85C17.05 6.66 17.05 6.35 16.85 6.15L12.85 2.15Z"/><path d="M19 12V19C19 19.55 18.55 20 18 20H6C5.45 20 5 19.55 5 19V12C5 11.45 4.55 11 4 11C3.45 11 3 11.45 3 12V19C3 20.66 4.34 22 6 22H18C19.66 22 21 20.66 21 19V12C21 11.45 20.55 11 20 11C19.45 11 19 11.45 19 12Z"/></svg>
+    <div class="main-portal">
+        <div class="brand-icon">
+            <svg viewBox="0 0 24 24"><path d="M19.35 10.04C18.67 6.59 15.64 4 12 4 9.11 4 6.6 5.64 5.35 8.04 2.34 8.36 0 10.91 0 14c0 3.31 2.69 6 6 6h13c2.76 0 5-2.24 5-5 0-2.64-2.05-4.78-4.65-4.96zM17 13l-5 5-5-5h3V9h4v4h3z"/></svg>
         </div>
 
         <div class="header">
-            <h1>JindexNova</h1>
-            <p>Please enter your private key to access the shared files.</p>
+            <h1>Cloud Access</h1>
+            <p>Enter your unique access key to retrieve the shared library files.</p>
         </div>
 
-        <div class="input-wrapper">
-            <input type="password" id="keyInput" placeholder="Enter security key" oninput="check()">
-            <div id="error-hint"></div>
+        <div class="input-container">
+            <input type="password" id="key" placeholder="Access Key" oninput="verify()">
+            <div id="status-hint"></div>
         </div>
 
-        <a href="https://drive.google.com/uc?export=download&id=1vDG8e11l53Fid78PKjnLpasq8Kem6q-w" id="dl" class="btn">Verify & Download</a>
+        <a href="https://drive.google.com/uc?export=download&id=1vDG8e11l53Fid78PKjnLpasq8Kem6q-w" id="dlBtn" class="download-action">Start Secure Download</a>
 
-        <div class="footer">
-            Don't have an access key? <br>
-            <a href="https://discord.gg/zeCeDV9FrF" target="_blank">Contact JINDEX STUDIO support</a>
+        <div class="support-area">
+            If you don't have a key, please join our discord: <br>
+            <a href="https://discord.gg/zeCeDV9FrF" target="_blank">discord.gg/zeCeDV9FrF</a>
         </div>
     </div>
 
     <script>
-        function check() {
-            const val = document.getElementById('keyInput').value;
-            const btn = document.getElementById('dl');
-            const hint = document.getElementById('error-hint');
-            const pass = "QeRT88JINDEX0929";
+        function verify() {
+            const input = document.getElementById('key').value;
+            const btn = document.getElementById('dlBtn');
+            const hint = document.getElementById('status-hint');
+            const master = "QeRT88JINDEX0929";
 
-            if(val === pass) {
+            if(input === master) {
                 btn.style.display = "block";
-                hint.style.opacity = "0";
-            } else if(val.length > 5) {
-                hint.innerText = "The key provided is not valid.";
-                hint.style.opacity = "1";
+                hint.innerText = "Key verified. Connection stable.";
+                hint.style.color = "#495057";
+            } else if(input.length > 4) {
+                btn.style.display = "none";
+                hint.innerText = "Security token mismatch.";
+                hint.style.color = "#adb5bd";
             } else {
                 btn.style.display = "none";
-                hint.style.opacity = "0";
+                hint.innerText = "";
             }
         }
     </script>
