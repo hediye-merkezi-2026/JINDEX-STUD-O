@@ -3,15 +3,11 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>JindexNova | Terminal Access</title>
+    <title>JindexNova | Quantum Access</title>
     <style>
-        @import url('https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;700&display=swap');
+        @import url('https://fonts.googleapis.com/css2?family=Syncopate:wght@400;700&family=JetBrains+Mono:wght@400;700&display=swap');
 
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
+        * { margin: 0; padding: 0; box-sizing: border-box; cursor: crosshair; }
 
         body {
             background-color: #000;
@@ -24,131 +20,128 @@
             align-items: center;
         }
 
-        /* Matrix Canvas Arka Plan */
         #matrix-canvas {
             position: fixed;
             top: 0;
             left: 0;
             z-index: 1;
+            filter: blur(1px);
         }
 
+        /* Ana Panel */
         .container {
-            width: 500px;
-            padding: 50px;
-            background: rgba(5, 5, 5, 0.9);
-            border: 1px solid #00ff41;
-            box-shadow: 0 0 30px rgba(0, 255, 65, 0.2);
+            width: 550px;
+            padding: 60px;
+            background: rgba(0, 5, 0, 0.95);
+            border: 2px solid #00ff41;
+            box-shadow: 0 0 20px rgba(0, 255, 65, 0.2), inset 0 0 50px rgba(0, 255, 65, 0.1);
             text-align: center;
             position: relative;
             z-index: 10;
-            backdrop-filter: blur(5px);
+            backdrop-filter: blur(15px);
+            clip-path: polygon(0 5%, 5% 0, 95% 0, 100% 5%, 100% 95%, 95% 100%, 5% 100%, 0 95%);
         }
 
-        .header {
-            margin-bottom: 35px;
-            border-bottom: 1px solid rgba(0, 255, 65, 0.3);
-            padding-bottom: 20px;
-        }
-
-        h1 {
-            font-size: 1.5rem;
-            letter-spacing: 6px;
+        .header h1 {
+            font-family: 'Syncopate', sans-serif;
+            font-size: 1.8rem;
+            letter-spacing: 12px;
             text-transform: uppercase;
-            text-shadow: 0 0 10px #00ff41;
+            background: linear-gradient(90deg, #00ff41, #fff, #00ff41);
+            background-size: 200% auto;
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            animation: shine 3s linear infinite;
         }
 
-        .system-status {
-            font-size: 0.75rem;
-            color: #888;
-            margin-top: 10px;
-            text-transform: uppercase;
+        @keyframes shine {
+            to { background-position: 200% center; }
         }
 
-        .input-group {
-            margin: 25px 0;
+        .system-loader {
+            width: 100%;
+            height: 2px;
+            background: rgba(0, 255, 65, 0.1);
+            margin: 20px 0;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .system-loader::after {
+            content: "";
+            position: absolute;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: #00ff41;
+            animation: loading 2s infinite;
+        }
+
+        @keyframes loading {
+            0% { left: -100%; }
+            100% { left: 100%; }
         }
 
         input[type="password"] {
             width: 100%;
-            background: rgba(0, 0, 0, 0.8);
-            border: 1px solid #00ff41;
-            padding: 18px;
+            background: rgba(0, 30, 0, 0.5);
+            border: 1px solid rgba(0, 255, 65, 0.4);
+            padding: 20px;
             color: #fff;
             font-family: 'JetBrains Mono', monospace;
-            font-size: 1rem;
+            font-size: 1.1rem;
+            letter-spacing: 5px;
             text-align: center;
             outline: none;
-            transition: all 0.3s ease;
-            box-shadow: inset 0 0 10px rgba(0, 255, 65, 0.1);
+            transition: 0.4s;
+            margin-top: 10px;
         }
 
         input[type="password"]:focus {
-            box-shadow: 0 0 20px rgba(0, 255, 65, 0.3), inset 0 0 10px rgba(0, 255, 65, 0.1);
+            border-color: #fff;
+            box-shadow: 0 0 30px rgba(0, 255, 65, 0.4);
         }
 
-        .discord-link {
-            display: block;
-            margin-top: 15px;
-            font-size: 0.7rem;
-            color: #888;
-            text-decoration: none;
-            transition: 0.3s;
-            text-transform: uppercase;
-            letter-spacing: 1px;
+        .discord-box {
+            margin-top: 25px;
+            padding: 15px;
+            border: 1px dashed rgba(0, 255, 65, 0.3);
+            font-size: 0.75rem;
         }
 
-        .discord-link a {
+        .discord-box span { color: #888; }
+
+        .discord-box a {
             color: #00ff41;
             text-decoration: none;
             font-weight: bold;
+            display: block;
+            margin-top: 5px;
+            transition: 0.3s;
         }
 
-        .discord-link a:hover {
-            color: #fff;
-            text-shadow: 0 0 10px #fff;
-        }
+        .discord-box a:hover { text-shadow: 0 0 15px #00ff41; color: #fff; }
 
         .download-btn {
             display: none;
             margin-top: 30px;
-            width: 100%;
-            padding: 18px;
+            padding: 20px;
             background: #00ff41;
             color: #000;
             text-decoration: none;
-            font-weight: 700;
-            text-transform: uppercase;
-            font-size: 0.9rem;
-            letter-spacing: 3px;
-            cursor: pointer;
-            transition: 0.4s;
-            border: none;
+            font-weight: 900;
+            letter-spacing: 5px;
+            animation: pulse 1.5s infinite;
         }
 
-        .download-btn:hover {
-            background: #fff;
-            box-shadow: 0 0 30px #fff;
+        @keyframes pulse {
+            0% { box-shadow: 0 0 0 0 rgba(0, 255, 65, 0.7); }
+            70% { box-shadow: 0 0 0 20px rgba(0, 255, 65, 0); }
+            100% { box-shadow: 0 0 0 0 rgba(0, 255, 65, 0); }
         }
 
-        .status-text {
-            margin-top: 20px;
-            font-size: 0.75rem;
-            height: 20px;
-            text-transform: uppercase;
-        }
+        .status-text { margin-top: 20px; font-size: 0.8rem; letter-spacing: 2px; }
 
-        /* Köşe Süslemeleri */
-        .corner {
-            position: absolute;
-            width: 20px;
-            height: 20px;
-            border-color: #00ff41;
-            border-style: solid;
-        }
-        .top-left { top: -3px; left: -3px; border-width: 3px 0 0 3px; }
-        .top-right { top: -3px; right: -3px; border-width: 3px 3px 0 0; }
-        .bottom-left { bottom: -3px; left: -3px; border-width: 0 0 3px 3px; }
-        .bottom-right { bottom: -3px; right: -3px; border-width: 0 3px 3px 0; }
     </style>
 </head>
 <body>
@@ -156,90 +149,65 @@
     <canvas id="matrix-canvas"></canvas>
 
     <div class="container">
-        <div class="corner top-left"></div>
-        <div class="corner top-right"></div>
-        <div class="corner bottom-left"></div>
-        <div class="corner bottom-right"></div>
-
         <div class="header">
             <h1>JINDEX NOVA</h1>
-            <div class="system-status">SECURE ACCESS GATEWAY</div>
+            <div class="system-loader"></div>
+            <p style="font-size: 0.7rem; color: #888;">QUANTUM ENCRYPTION ACTIVE</p>
         </div>
 
         <div class="input-group">
-            <input type="password" id="accessKey" placeholder="ENCRYPTED KEY" oninput="validate()">
-            <div class="discord-link">
-                if you don't know the password join: <br>
-                <a href="https://discord.gg/zeCeDV9FrF" target="_blank">discord.gg/zeCeDV9FrF</a>
+            <input type="password" id="accessKey" placeholder="LICENSE_KEY" oninput="validate()">
+            <div class="discord-box">
+                <span>// UNAUTHORIZED ACCESS ATTEMPT?</span>
+                <a href="https://discord.gg/zeCeDV9FrF" target="_blank">JOIN_DISCORD_FOR_ACCESS</a>
             </div>
         </div>
 
-        <a href="https://drive.google.com/uc?export=download&id=1vDG8e11l53Fid78PKjnLpasq8Kem6q-w" id="downloadBtn" class="download-btn">INITIATE DOWNLOAD</a>
+        <a href="https://drive.google.com/uc?export=download&id=1vDG8e11l53Fid78PKjnLpasq8Kem6q-w" id="downloadBtn" class="download-btn">INITIALIZE CORE TRANSFER</a>
         
         <div id="status" class="status-text"></div>
     </div>
 
     <script>
-        // Matrix Rain Animation
         const canvas = document.getElementById('matrix-canvas');
         const ctx = canvas.getContext('2d');
-
         canvas.width = window.innerWidth;
         canvas.height = window.innerHeight;
 
-        const letters = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789@#$%^&*()*&^%";
+        const letters = "日ﾊﾐﾋｰｳｼﾅﾓﾆｻﾜﾂｵﾘｱﾎﾃﾏｹﾒｴｶｷﾑﾕﾗｾﾈｽﾀﾇﾍ0123456789";
         const fontSize = 16;
         const columns = canvas.width / fontSize;
-        const drops = [];
-
-        for (let i = 0; i < columns; i++) {
-            drops[i] = 1;
-        }
+        const drops = Array(Math.floor(columns)).fill(1);
 
         function drawMatrix() {
             ctx.fillStyle = 'rgba(0, 0, 0, 0.05)';
             ctx.fillRect(0, 0, canvas.width, canvas.height);
-
-            ctx.fillStyle = '#00ff41';
+            ctx.fillStyle = '#0F0';
             ctx.font = fontSize + 'px monospace';
 
             for (let i = 0; i < drops.length; i++) {
                 const text = letters.charAt(Math.floor(Math.random() * letters.length));
                 ctx.fillText(text, i * fontSize, drops[i] * fontSize);
-
-                if (drops[i] * fontSize > canvas.height && Math.random() > 0.975) {
-                    drops[i] = 0;
-                }
+                if (drops[i] * fontSize > canvas.height && Math.random() > 0.975) drops[i] = 0;
                 drops[i]++;
             }
         }
+        setInterval(drawMatrix, 30);
 
-        setInterval(drawMatrix, 35);
-
-        window.addEventListener('resize', () => {
-            canvas.width = window.innerWidth;
-            canvas.height = window.innerHeight;
-        });
-
-        // Validation Logic
         function validate() {
             const input = document.getElementById('accessKey').value;
             const btn = document.getElementById('downloadBtn');
             const status = document.getElementById('status');
-            
             const secureKey = "QeRT88JINDEX0929"; 
 
             if(input === secureKey) {
                 btn.style.display = "block";
                 status.style.color = "#00ff41";
-                status.innerText = "ACCESS GRANTED - PIPELINE OPEN";
-                document.getElementById('accessKey').style.borderColor = "#fff";
+                status.innerText = "> DECRYPTION SUCCESSFUL. ESTABLISHING LINK...";
             } else if(input.length > 0) {
                 btn.style.display = "none";
                 status.style.color = "#ff0000";
-                status.innerText = "AUTHENTICATION FAILURE";
-            } else {
-                status.innerText = "";
+                status.innerText = "> ERROR: INCORRECT_KEY_STRUCTURE";
             }
         }
     </script>
