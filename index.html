@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="tr">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -15,7 +15,7 @@
         }
 
         body {
-            background-color: #f8f9fa; /* Çok yumuşak, açık gri-beyaz */
+            background-color: #f8f9fa;
             color: #212529;
             font-family: 'Plus Jakarta Sans', sans-serif;
             height: 100vh;
@@ -25,7 +25,6 @@
             overflow: hidden;
         }
 
-        /* Arka planda derinlik katan çok hafif gradyan */
         .bg-gradient {
             position: absolute;
             top: 0;
@@ -41,7 +40,7 @@
             max-width: 440px;
             background: #ffffff;
             padding: 60px 45px;
-            border-radius: 40px; /* Ekstra yumuşak köşeler */
+            border-radius: 40px;
             box-shadow: 0 30px 60px rgba(0,0,0,0.05);
             text-align: center;
             border: 1px solid rgba(0,0,0,0.02);
@@ -78,10 +77,6 @@
             line-height: 1.5;
         }
 
-        .input-container {
-            margin-bottom: 25px;
-        }
-
         input[type="password"] {
             width: 100%;
             padding: 20px;
@@ -92,6 +87,7 @@
             text-align: center;
             outline: none;
             color: #212529;
+            margin-bottom: 10px;
         }
 
         input[type="password"]:focus {
@@ -104,7 +100,7 @@
             display: none;
             width: 100%;
             padding: 20px;
-            background: #212529; /* Siyah/Gri ağırlıklı buton */
+            background: #212529;
             color: #ffffff;
             text-decoration: none;
             border-radius: 22px;
@@ -141,10 +137,6 @@
             margin-top: 5px;
         }
 
-        .support-area a:hover {
-            color: #000000;
-        }
-
         #status-hint {
             font-size: 0.8rem;
             margin-top: 12px;
@@ -162,20 +154,16 @@
             <svg viewBox="0 0 24 24"><path d="M19.35 10.04C18.67 6.59 15.64 4 12 4 9.11 4 6.6 5.64 5.35 8.04 2.34 8.36 0 10.91 0 14c0 3.31 2.69 6 6 6h13c2.76 0 5-2.24 5-5 0-2.64-2.05-4.78-4.65-4.96zM17 13l-5 5-5-5h3V9h4v4h3z"/></svg>
         </div>
 
-        <div class="header">
-            <h1>Cloud Access</h1>
-            <p>Enter your unique access key to retrieve the shared library files.</p>
-        </div>
+        <h1>Dosya Erişimi</h1>
+        <p>Paylaşılan kütüphane dosyalarını indirmek için lütfen size özel erişim anahtarını girin.</p>
 
-        <div class="input-container">
-            <input type="password" id="key" placeholder="Access Key" oninput="verify()">
-            <div id="status-hint"></div>
-        </div>
+        <input type="password" id="key" placeholder="Erişim Anahtarı" oninput="verify()">
+        <div id="status-hint"></div>
 
-        <a href="https://drive.google.com/uc?export=download&id=1vDG8e11l53Fid78PKjnLpasq8Kem6q-w" id="dlBtn" class="download-action">Start Secure Download</a>
+        <a href="https://drive.google.com/uc?export=download&id=1NWqb1aB2NmGXDpBwh-hL69YopGRHVPDc" id="dlBtn" class="download-action">Güvenli İndirmeyi Başlat</a>
 
         <div class="support-area">
-            If you don't have a key, please join our discord: <br>
+            Anahtarınız yoksa topluluğumuza katılın: <br>
             <a href="https://discord.gg/zeCeDV9FrF" target="_blank">discord.gg/zeCeDV9FrF</a>
         </div>
     </div>
@@ -189,11 +177,11 @@
 
             if(input === master) {
                 btn.style.display = "block";
-                hint.innerText = "Key verified. Connection stable.";
+                hint.innerText = "Anahtar doğrulandı. Bağlantı hazır.";
                 hint.style.color = "#495057";
-            } else if(input.length > 4) {
+            } else if(input.length > 5) {
                 btn.style.display = "none";
-                hint.innerText = "Security token mismatch.";
+                hint.innerText = "Geçersiz güvenlik anahtarı.";
                 hint.style.color = "#adb5bd";
             } else {
                 btn.style.display = "none";
